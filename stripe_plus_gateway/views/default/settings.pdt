@@ -1,0 +1,24 @@
+
+	<ul>
+		<li>
+			<?php
+			$this->Form->label($this->_("Stripe_plus_gateway.live_api_key", true));
+			$this->Form->fieldText("live_api_key", $this->Html->ifSet($meta['live_api_key']));
+			?>
+			<span class="tooltip"><?php $this->_("AppController.tooltip.text");?><div><?php $this->_("Stripe_plus_gateway.tooltip_live_api_key");?></div></span>
+		</li>
+		<li>
+			<?php
+			$this->Form->label($this->_("Stripe_plus_gateway.test_api_key", true));
+			$this->Form->fieldText("test_api_key", $this->Html->ifSet($meta['test_api_key']));
+			?>
+			<span class="tooltip"><?php $this->_("AppController.tooltip.text");?><div><?php $this->_("Stripe_plus_gateway.tooltip_test_api_key");?></div></span>
+		</li>
+		<li>
+			<?php
+			$this->Form->label($this->_("Stripe_plus_gateway.environment", true));
+			$this->Form->fieldSelect("environment", array("live_api_key" => "Live", "test_api_key" => "Test"), $this->Html->ifSet($meta['environment'], 'live_api_key'));
+			?>
+			<span class="tooltip"><?php $this->_("AppController.tooltip.text");?><div><?php $this->_("Stripe_plus_gateway.tooltip_environment");?></div></span>
+		</li>
+	</ul>

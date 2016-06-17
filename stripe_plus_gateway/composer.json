@@ -1,0 +1,9 @@
+{
+    "name": "blesta/stripe_plus_gateway",
+    "description": "Forked version of the official Stripe gateway which includes updated offsite storage and ACH payments.",
+    "license": "proprietary",
+    "type": "blesta-gateway-merchant",
+    "require": {
+        "blesta/composer-installer": "~1.0"
+    }
+}
