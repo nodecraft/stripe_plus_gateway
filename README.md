@@ -2,7 +2,7 @@
 Forked version of the original Stripe gateway which includes updated offsite storage and ACH payments.
 
 ## Installation
-Upload `stripe_plus_gateway` folder to `~/components/gateways/merchant` directory on Blesta installation.
+Download the latest release version from our [Releases](https://github.com/nodecraft/stripe_plus_gateway/releases) and then simply upload the `stripe_plus_gateway` folder to `~/components/gateways/merchant` directory on your Blesta installation.
 
 ### Feature changes from Original Gateway
 This gateway has been rewritten from the original version which was distributed with Blesta. The major changes are as follows:
