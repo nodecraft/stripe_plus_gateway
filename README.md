@@ -22,7 +22,7 @@ This gateway has been rewritten from the original version which was distributed 
 ### Cons:
  -  *ACH Payments by Stripe require "verification" before payments are accepted. Blesta does not provide any methods for this process to take place. You will need to manually verify the bank account with your customer until this is improved or a plugin created.
 
- ### Roadmap:
+### Roadmap:
 - [ ] Add ACH verification if Blesta implements methods on Gateway
    
 ### License
