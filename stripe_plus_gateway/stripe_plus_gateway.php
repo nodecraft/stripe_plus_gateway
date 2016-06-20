@@ -429,7 +429,7 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 	 * 	- message The message to be displayed in the interface in addition to the standard message for this transaction status (optional)
 	 */
 	public function voidStoredCc($client_reference_id, $account_reference_id, $transaction_reference_id, $transaction_id) {
-		return $response = $this->processRefund($transaction_id);
+		return $this->processRefund($transaction_id);
 	}
 	/**
 	 * Refund an off site credit card charge

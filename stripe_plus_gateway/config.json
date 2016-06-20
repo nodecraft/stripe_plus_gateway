@@ -1,5 +1,5 @@
 {
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"name": "Stripe Plus",
 	"description": "Forked version of the official Stripe gateway which includes updated offsite storage and ACH payments.",
 	"authors": [
@@ -8,7 +8,7 @@
 			"url": "https://github.com/nodecraft"
 		},
 		{
-			"name": "Phillips Data, Inc."
+			"name": "Phillips Data, Inc.",
 			"url": "http://www.blesta.com"
 		}
 	],
