@@ -2,6 +2,11 @@
 
 namespace Stripe;
 
+/**
+ * Class Subscription
+ *
+ * @package Stripe
+ */
 class Subscription extends ApiResource
 {
     /**
@@ -35,6 +40,18 @@ class Subscription extends ApiResource
     public static function create($params = null, $opts = null)
     {
         return self::_create($params, $opts);
+    }
+
+    /**
+     * @param string $id The ID of the subscription to retrieve.
+     * @param array|null $params
+     * @param array|string|null $options
+     *
+     * @return Subscription The updated subscription.
+     */
+    public static function update($id, $params = null, $options = null)
+    {
+        return self::_update($id, $params, $options);
     }
 
     /**

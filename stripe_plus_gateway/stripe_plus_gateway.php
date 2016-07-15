@@ -709,12 +709,14 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 		$this->loadApi();
 		$result = false;
 		$logUrl = "charges";
+		$description = $this->createDescription($invoice_amounts);
 		$request = array(
 			'amount' => $this->formatAmount($amount, $this->currency),
 			'currency' => strtolower($this->currency),
 			'customer' => $client_reference_id,
 			'source' => $account_reference_id,
-			'statement_descriptor' => $this->createDescription($invoice_amounts)
+			'statement_descriptor' => $description,
+			'description' => $description
 		);
 		try {
 			$charge = \Stripe\Charge::create($request);
@@ -1031,11 +1033,13 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 				$desc = "Combined invoices payment";
 			}
 		}
-		else {
+		elseif(count($invoice_amounts) === 1) {
 			$desc = "Invoice " . $invoice_amounts[0]['invoice_id'];
 			if (strlen($desc) > 22) {
 				$desc = "Invoice payment";
 			}
+		}else{ // no invoice amounts passed, must be a credit deposit
+			$desc = 'Payment Credit';
 		}
 		return $desc;
 	}
