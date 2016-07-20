@@ -1,5 +1,5 @@
 {
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"name": "Stripe Plus",
 	"description": "Forked version of the official Stripe gateway which includes updated offsite storage and ACH payments.",
 	"authors": [

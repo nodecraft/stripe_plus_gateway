@@ -1030,7 +1030,7 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 			}
 			$desc = "Invoices " . join(", ", $ids);
 			if (strlen($desc) > 22) {
-				$desc = "Combined invoices payment";
+				$desc = "Multi-invoice payment";
 			}
 		}
 		elseif(count($invoice_amounts) === 1) {
