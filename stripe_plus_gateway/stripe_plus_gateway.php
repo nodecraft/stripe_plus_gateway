@@ -1024,20 +1024,10 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 	private function createDescription($invoice_amounts) {
 		$desc = "";
 		if (count($invoice_amounts) > 1) {
-			$ids = array();
-			foreach($invoice_amounts as $invoice) {
-				$ids[] = $invoice['invoice_id'];
-			}
-			$desc = "Invoices " . join(", ", $ids);
-			if (strlen($desc) > 22) {
-				$desc = "Multi-invoice payment";
-			}
+			$desc = "Multi-invoice payment";
 		}
 		elseif(count($invoice_amounts) === 1) {
-			$desc = "Invoice " . $invoice_amounts[0]['invoice_id'];
-			if (strlen($desc) > 22) {
-				$desc = "Invoice payment";
-			}
+			$desc = "Invoice payment";
 		}else{ // no invoice amounts passed, must be a credit deposit
 			$desc = 'Payment Credit';
 		}

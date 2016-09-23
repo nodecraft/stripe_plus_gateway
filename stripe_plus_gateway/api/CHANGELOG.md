@@ -1,3 +1,31 @@
+### 3.23.0 2016-09-15
+
+* Add support for Apple Pay domains
+
+### 3.22.0 2016-09-13
+
+* Add `Stripe::setAppInfo` to allow plugins to register user agent information
+
+### 3.21.0 2016-08-25
+
+* Add `Source` model for generic payment sources
+
+### 3.20.0 2016-08-08
+
+* Add `getDeclineCode` to card errors
+
+### 3.19.0 2016-07-29
+
+* Opt requests directly into TLS 1.2 where OpenSSL >= 1.0.1 (see #277 for context)
+
+### 3.18.0 2016-07-28
+
+* Add new `STATUS_` constants for subscriptions
+
+### 3.17.1 2016-07-28
+
+* Fix auto-paging iterator so that it plays nicely with `iterator_to_array`
+
 ### 3.17.0 2016-07-14
 
 * Add field annotations to model classes for better editor hinting

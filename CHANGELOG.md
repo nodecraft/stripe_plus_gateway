@@ -1,3 +1,12 @@
+### 1.0.4 2016-09-23
+
+* Updated Stripe PHP SDK to version 3.23.0
+* Remove invoice IDs from statement descriptors
+
+### 1.0.3 2016-07-20
+
+* Patches statement description for multi-invoice payments
+
 ### 1.0.2 2016-07-15
 
 * Updated Stripe PHP SDK to version 3.17.0
