@@ -1022,17 +1022,29 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 	 * @return string Statement description of invoice(s)
 	 */
 	private function createDescription($invoice_amounts) {
+		Loader::loadModels($this, array("Invoices"));
 		$desc = "";
 		if (count($invoice_amounts) > 1) {
-			$desc = "Multi-invoice payment";
+			$ids = array();
+			foreach($invoice_amounts as $invoice) {				
+				$ids[] = $this->Invoices->get($invoice['invoice_id'])->id_code;
+			}
+			$desc = "Invoices " . join(", ", $ids);
+			if (strlen($desc) > 22) {
+				$desc = "Multi-invoice payment";
+			}
 		}
 		elseif(count($invoice_amounts) === 1) {
-			$desc = "Invoice payment";
+			$desc = "Invoice " . $this->Invoices->get($invoice_amounts[0]['invoice_id'])->id_code;
+			if (strlen($desc) > 22) {
+				$desc = "Invoice payment";
+			}
 		}else{ // no invoice amounts passed, must be a credit deposit
 			$desc = 'Payment Credit';
 		}
 		return $desc;
 	}
+	
 	/**
 	 * Helper function to generate single name from parts
 	 *
