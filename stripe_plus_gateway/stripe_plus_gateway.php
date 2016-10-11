@@ -678,7 +678,7 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 		$this->loadApi();
 		$result = false;
 		$logUrl = "customers/" . $client_reference_id . "/sources/" . $account_reference_id;
-		$request = [];
+		$request = array();
 		try {
 			$stripe_customer = $result = \Stripe\Customer::retrieve($client_reference_id);
 			$source = $stripe_customer->sources->retrieve($account_reference_id);
@@ -1022,12 +1022,15 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 	 * @return string Statement description of invoice(s)
 	 */
 	private function createDescription($invoice_amounts) {
-		Loader::loadModels($this, array("Invoices"));
+		if(!isset($this->Invoices))
+			Loader::loadModels($this, array("Invoices"));
+
 		$desc = "";
 		if (count($invoice_amounts) > 1) {
 			$ids = array();
-			foreach($invoice_amounts as $invoice) {				
-				$ids[] = $this->Invoices->get($invoice['invoice_id'])->id_code;
+			foreach($invoice_amounts as $invoice) {
+				$invoice_data = $this->Invoices->get($invoice['invoice_id']);
+				$ids[] = $invoice_data ? $invoice_data->id_code : $invoice['invoice_id'];
 			}
 			$desc = "Invoices " . join(", ", $ids);
 			if (strlen($desc) > 22) {
@@ -1035,7 +1038,8 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 			}
 		}
 		elseif(count($invoice_amounts) === 1) {
-			$desc = "Invoice " . $this->Invoices->get($invoice_amounts[0]['invoice_id'])->id_code;
+			$invoice_data = $this->Invoices->get($invoice['invoice_id']);
+			$desc = "Invoice " . $invoice_data ? $invoice_data->id_code : $invoice['invoice_id'];
 			if (strlen($desc) > 22) {
 				$desc = "Invoice payment";
 			}
@@ -1044,7 +1048,7 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 		}
 		return $desc;
 	}
-	
+
 	/**
 	 * Helper function to generate single name from parts
 	 *
