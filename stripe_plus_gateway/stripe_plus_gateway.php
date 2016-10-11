@@ -1030,7 +1030,7 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 			$ids = array();
 			foreach($invoice_amounts as $invoice) {
 				$invoice_data = $this->Invoices->get($invoice['invoice_id']);
-				$ids[] = $invoice_data ? $invoice_data->id_code : $invoice['invoice_id'];
+				$ids[] = ($invoice_data ? $invoice_data->id_code : $invoice['invoice_id']);
 			}
 			$desc = "Invoices " . join(", ", $ids);
 			if (strlen($desc) > 22) {
@@ -1039,7 +1039,7 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 		}
 		elseif(count($invoice_amounts) === 1) {
 			$invoice_data = $this->Invoices->get($invoice_amounts[0]['invoice_id']);
-			$desc = "Invoice " . $invoice_data ? $invoice_data->id_code : $invoice['invoice_id'];
+			$desc = "Invoice " . ($invoice_data ? $invoice_data->id_code : $invoice_amounts[0]['invoice_id']);
 			if (strlen($desc) > 22) {
 				$desc = "Invoice payment";
 			}
