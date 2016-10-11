@@ -1,3 +1,7 @@
+### 1.0.5 2016-10-11
+
+* Clean up and add additional, likely redundant error checks for pull request #1
+
 ### 1.0.4 2016-09-23
 
 * Updated Stripe PHP SDK to version 3.23.0
