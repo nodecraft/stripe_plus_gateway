@@ -1,3 +1,73 @@
+### 4.9.1 2017-05-10
+
+* Fix docs to include arrays on `$id` parameter for retrieve methods
+
+### 4.9.0 2017-04-28
+
+* Support for checking webhook signatures
+
+### 4.8.1 2017-04-24
+
+* Allow nested field `payout_schedule` to be updated
+
+### 4.8.0 2017-04-20
+
+* Add `\Stripe\Stripe::setLogger()` to support an external PSR-3 compatible logger
+
+### 4.7.0 2017-04-10
+
+* Add support for payouts and recipient transfers
+
+### 4.6.0 2017-04-06
+
+* Please see 4.7.0 instead (no-op release)	
+
+### 4.5.1 2017-03-22
+
+* Remove hard dependency on cURL
+
+### 4.5.0 2017-03-20
+
+* Support for detaching sources from customers
+
+### 4.4.2 2017-02-27
+
+* Correct handling of `owner` parameter when updating sources
+
+### 4.4.1 2017-02-24
+
+* Correct the error check on a bad JSON decoding
+
+### 4.4.0 2017-01-18
+
+* Add support for updating sources
+
+### 4.3.0 2016-11-30
+
+* Add support for verifying sources
+
+### 4.2.0 2016-11-21
+
+* Add retrieve method for 3-D Secure resources
+
+### 4.1.1 2016-10-21
+
+* Add docblock with model properties for `Plan`
+
+### 4.1.0 2016-10-18
+
+* Support for 403 status codes (permission denied)
+
+### 4.0.1 2016-10-17
+
+* Fix transfer reversal materialization
+* Fixes for some property definitions in docblocks
+
+### 4.0.0 2016-09-28
+
+* Support for subscription items
+* Drop attempt to force TLS 1.2: please note that this could be breaking if you're using old OS distributions or packages and upgraded recently (so please make sure to test your integration!)
+
 ### 3.23.0 2016-09-15
 
 * Add support for Apple Pay domains

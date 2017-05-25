@@ -1,3 +1,8 @@
+### 1.0.6 2017-05-25
+
+* Updated Stripe PHP SDK to version 4.9.1
+* Add ability to pass merchant_token (with blesta edits) to gateway
+
 ### 1.0.5 2016-10-11
 
 * Use invoice `id_code` so to not expose the ID on statement descriptions

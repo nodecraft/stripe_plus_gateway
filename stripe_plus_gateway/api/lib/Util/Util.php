@@ -7,6 +7,7 @@ use Stripe\StripeObject;
 abstract class Util
 {
     private static $isMbstringAvailable = null;
+    private static $isHashEqualsAvailable = null;
 
     /**
      * Whether the provided array (or other) is a list rather than a dictionary.
@@ -82,15 +83,19 @@ abstract class Util
             'file' => 'Stripe\\FileUpload',
             'token' => 'Stripe\\Token',
             'transfer' => 'Stripe\\Transfer',
+            'transfer_reversal' => 'Stripe\\TransferReversal',
             'order' => 'Stripe\\Order',
             'order_return' => 'Stripe\\OrderReturn',
+            'payout' => 'Stripe\\Payout',
             'plan' => 'Stripe\\Plan',
             'product' => 'Stripe\\Product',
             'recipient' => 'Stripe\\Recipient',
+            'recipient_transfer' => 'Stripe\\RecipientTransfer',
             'refund' => 'Stripe\\Refund',
             'sku' => 'Stripe\\SKU',
             'source' => 'Stripe\\Source',
             'subscription' => 'Stripe\\Subscription',
+            'subscription_item' => 'Stripe\\SubscriptionItem',
             'three_d_secure' => 'Stripe\\ThreeDSecure',
             'fee_refund' => 'Stripe\\ApplicationFeeRefund',
             'bitcoin_receiver' => 'Stripe\\BitcoinReceiver',
@@ -137,6 +142,35 @@ abstract class Util
             return utf8_encode($value);
         } else {
             return $value;
+        }
+    }
+
+    /**
+     * Compares two strings for equality. The time taken is independent of the
+     * number of characters that match.
+     *
+     * @param string $a one of the strings to compare.
+     * @param string $b the other string to compare.
+     * @return bool true if the strings are equal, false otherwise.
+     */
+    public static function secureCompare($a, $b)
+    {
+        if (self::$isHashEqualsAvailable === null) {
+            self::$isHashEqualsAvailable = function_exists('hash_equals');
+        }
+
+        if (self::$isHashEqualsAvailable) {
+            return hash_equals($a, $b);
+        } else {
+            if (strlen($a) != strlen($b)) {
+                return false;
+            }
+
+            $result = 0;
+            for ($i = 0; $i < strlen($a); $i++) {
+                $result |= ord($a[$i]) ^ ord($b[$i]);
+            }
+            return ($result == 0);
         }
     }
 }

@@ -73,6 +73,37 @@ class SubscriptionTest extends TestCase
         $this->assertTrue($sub->cancel_at_period_end);
     }
 
+    public function testCreateUpdateListCancelWithItems()
+    {
+        $plan0ID = 'gold-' . self::generateRandomString(20);
+        self::retrieveOrCreatePlan($plan0ID);
+
+        $customer = self::createTestCustomer();
+
+        $sub = Subscription::create(array(
+          'customer' => $customer->id,
+          'items' => array(
+            array('plan' => $plan0ID),
+          ),
+        ));
+
+        $this->assertSame(count($sub->items->data), 1);
+        $this->assertSame($sub->items->data[0]->plan->id, $plan0ID);
+
+        $plan1ID = 'gold-' . self::generateRandomString(20);
+        self::retrieveOrCreatePlan($plan1ID);
+
+        $sub = Subscription::update($sub->id, array(
+          'items' => array(
+            array('plan' => $plan1ID),
+          ),
+        ));
+
+        $this->assertSame(count($sub->items->data), 2);
+        $this->assertSame($sub->items->data[0]->plan->id, $plan0ID);
+        $this->assertSame($sub->items->data[1]->plan->id, $plan1ID);
+    }
+
     public function testDeleteDiscount()
     {
         $planID = 'gold-' . self::generateRandomString(20);
