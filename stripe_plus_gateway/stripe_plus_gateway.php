@@ -326,29 +326,27 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 		$logUrl = "customers/" . $stripe_customer->id . "/sources/" . $account_reference_id;
 		$request = $card_info;
 		$result = false;
+
 		try {
-			$card = $stripe_customer->sources->retrieve($account_reference_id);
-			$card->number = $card_info["card_number"];
-			$card->exp_month = substr($card_info['card_exp'], -2);
-			$card->exp_year = substr($card_info['card_exp'], 0, 4);
-			$card->cvc = $this->ifSet($card_info['card_security_code'], $card->cvc);
-			$card->name = $this->getCustomerName($card_info, $card->name);
-			$card->address_line1 = $this->ifSet($card_info['address1'], $card->address_line1);
-			$card->address_line2 = $this->ifSet($card_info['address2'], $card->address_line2);
-			$card->address_zip = $this->ifSet($card_info['zip'], $card->address_zip);
-			$card->address_state = $this->ifSet($card_info['state']['code'], $card->address_state);
-			$card->address_country = $this->ifSet($card_info['country']['alpha3'], $card->address_country);
-			$request = $this->objectToArray($card);
-			$save = $card->save();
-			$result = array(
-				'client_reference_id' => $stripe_customer->id,
-				'reference_id' => $card->id
-			);
+			$source = $stripe_customer->sources->retrieve($account_reference_id);
+			$source->exp_month = substr($card_info['card_exp'], -2);
+			$source->exp_year = substr($card_info['card_exp'], 0, 4);
+			$source->name = $this->getCustomerName($card_info, $source->name);
+			$source->address_line1 = $this->ifSet($card_info['address1'], $source->address_line1);
+			$source->address_line2 = $this->ifSet($card_info['address2'], $source->address_line2);
+			$source->address_zip = $this->ifSet($card_info['zip'], $source->address_zip);
+			$source->address_state = $this->ifSet($card_info['state']['code'], $source->address_state);
+			$source->address_country = $this->ifSet($card_info['country']['alpha3'], $source->address_country);
+			$request = $this->objectToArray($source);
+			$save = $source->save();
+			$result = $this->parseSource($stripe_customer, $source);
 			$this->logRequest($logUrl, $request, $save->__toArray(true));
+			file_put_contents('./debug.json', json_encode($results));
 		}
 		catch(Exception $e) {
 			$errors = $this->handleErrors($e);
 			$this->logRequest($logUrl, $request, $this->getErrorLog($e, $errors), true);
+			file_put_contents('./debug-error.json', var_export($e, true));
 		}
 
 		return $result;
@@ -663,10 +661,7 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 		$result = false;
 		try {
 			$source = $stripe_customer->sources->create($request);
-			$result = array(
-				'client_reference_id' => $stripe_customer->id,
-				'reference_id' => $source->id
-			);
+			$result = $this->parseSource($stripe_customer, $source);
 			$this->logRequest($logUrl, $request, $source->__toArray(true));
 		}
 		catch(Exception $e) {
@@ -675,6 +670,18 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 		}
 		return $result;
 	}
+
+
+	private function parseSource($stripe_customer, $source){
+		return [
+			'client_reference_id' => $stripe_customer->id,
+			'reference_id' => $source->id,
+			'last4' => $source->last4,
+			'type' => strtolower($source->brand),
+			'expiration' => $source->exp_year . substr("0" . $source->exp_month, -2)
+		];
+	}
+
 	/**
 	 * Gateway Helper: Removes source from Stripe customer by contact
 	 *
