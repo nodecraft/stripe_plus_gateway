@@ -1,3 +1,7 @@
+### 1.0.7 2017-05-25
+
+* Return last4, type and expiration for storage in Blesta DB
+
 ### 1.0.6 2017-05-25
 
 * Updated Stripe PHP SDK to version 4.9.1
