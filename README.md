@@ -9,8 +9,8 @@ This gateway has been rewritten from the original version which was distributed 
  - Only creates one Stripe Customer per Client Contact, rather than one Stripe Customer per Credit Card
  - Only supports offsite card storage, onsite storage is removed
  - Supports ACH payments*
- - Updated Stripe API PHP SDK to version `3.14.2`
- - Utilizes Stripe API Version `2016-06-15`
+ - Updated Stripe API PHP SDK to version `4.9.1`
+ - Utilizes Stripe API Version `2017-05-25`
  - Adds API key environment selection (test vs live)
  - Updated Currency list to Stripe Documentation
  - Does not utilize Blesta's `$client_reference_id` lookup to Stripe customer ID. This can cause multiple customer accounts if the user deletes all payment methods. Uses added MySQL table `stripe_plus_meta`
