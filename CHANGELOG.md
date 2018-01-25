@@ -1,3 +1,7 @@
+### 1.0.8 2018-01-25
+
+* Fixed non-visa cards from not being inserted to Blesta's DB correctly
+
 ### 1.0.7 2017-05-25
 
 * Return last4, type and expiration for storage in Blesta DB

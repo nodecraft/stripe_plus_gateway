@@ -54,6 +54,8 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 				setField("stripe_id", array('type'=>"varchar", 'size'=>24))->
 				setKey(array("id"), "primary")->
 				setKey(array("contact_id"), "index")->
+				setKey(array("contact_id"), "unique")->
+				setKey(array("stripe_id"), "unique")->
 				create("stripe_plus_meta", true);
 		}
 		catch (Exception $e) {
@@ -672,12 +674,29 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 	}
 
 
+	private function getCCType($brand){
+		$brandMap = [
+			"visa" => "visa",
+			"american express" => "amex",
+			"mastercard" => "mc",
+			"discover" => "disc",
+			"jcb" => "jcb",
+			"diners club" => "dc-cb",
+			"unknown" => "visa"
+		];
+		$check = $brandMap[strtolower($brand)];
+		if($check){
+			return $check;
+		}
+		return $brandMap['unknown'];
+	}
+
 	private function parseSource($stripe_customer, $source){
 		return [
 			'client_reference_id' => $stripe_customer->id,
 			'reference_id' => $source->id,
 			'last4' => $source->last4,
-			'type' => strtolower($source->brand),
+			'type' => $this->getCCType($source->brand),
 			'expiration' => $source->exp_year . substr("0" . $source->exp_month, -2)
 		];
 	}
