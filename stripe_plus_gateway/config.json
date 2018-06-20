@@ -4,7 +4,7 @@
 	"description": "Forked version of the official Stripe gateway which includes updated offsite storage and ACH payments.",
 	"authors": [
 		{
-			"name": "NodeCraft Hosting LLC",
+			"name": "Nodecraft Inc.",
 			"url": "https://github.com/nodecraft"
 		},
 		{
