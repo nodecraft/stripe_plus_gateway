@@ -53,7 +53,6 @@ class StripePlusGateway extends MerchantGateway implements MerchantCcOffsite, Me
 				setField("contact_id", array('type'=>"int", 'size'=>10, 'unsigned'=>true))->
 				setField("stripe_id", array('type'=>"varchar", 'size'=>24))->
 				setKey(array("id"), "primary")->
-				setKey(array("contact_id"), "index")->
 				setKey(array("contact_id"), "unique")->
 				setKey(array("stripe_id"), "unique")->
 				create("stripe_plus_meta", true);

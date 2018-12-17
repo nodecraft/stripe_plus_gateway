@@ -1,3 +1,7 @@
+### 1.0.9 2018-12-17
+
+* Fixed install function
+
 ### 1.0.8 2018-01-25
 
 * Fixed non-visa cards from not being inserted to Blesta's DB correctly
