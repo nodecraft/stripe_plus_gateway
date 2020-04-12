@@ -1,3 +1,7 @@
+Note: This Gateway is no longer maintained. All of its features (and more, including SCA compliance) are now available in the latest versions of Blesta, in the [Stripe Payments](https://docs.blesta.com/display/user/Stripe+Payments) Gateway.
+
+---
+
 # Blesta: Stripe (plus) Gateway
 Forked version of the original Stripe gateway which includes updated offsite storage and ACH payments.
 
